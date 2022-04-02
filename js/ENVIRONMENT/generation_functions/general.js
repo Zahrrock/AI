@@ -18,9 +18,9 @@ function generateImg(x, y, src, id, className){ // Génère une image
     image.src = src;
     image.id = id;
     image.className = className;
-    image.style.width = String(REAL.CELL_WIDTH_AND_HEIGHT)+"%";
+    image.style.width = String(ENV.CELL_WIDTH_AND_HEIGHT)+"%";
     setImgPosition(image, x, y);
-    REAL.div_game.appendChild(image);
+    ENV.div_game.appendChild(image);
     return image;
 }
 function setImgPosition(image, x, y){ // Modifie la position d'une image
@@ -39,8 +39,8 @@ function transformCssCoordinateIntoJsCoordinate(coordinate){ // Transforme la co
 }
 
 function generateFreeRandomCoordinates(){ // Renvoie des coordonnées aléatoire non occupées par un obstacle
-    const random_number = randomNumber(0, REAL.Free_Rectangles.length-1);
-    const random_free_rectangle = REAL.Free_Rectangles[random_number]; // on récupère les coordonnées d'un rectangle libres (car par définition, ces coordonnées ne sont pas occupées par un obstacle)
+    const random_number = randomNumber(0, ENV.Free_Rectangles.length-1);
+    const random_free_rectangle = ENV.Free_Rectangles[random_number]; // on récupère les coordonnées d'un rectangle libres (car par définition, ces coordonnées ne sont pas occupées par un obstacle)
     const random_coordinates = {
         x : random_free_rectangle.x(),
         y : random_free_rectangle.y()
@@ -52,7 +52,7 @@ function randomNumber(min = 0, max = 1) { // Génère un nombre aléatoire en un
 }
 
 function ObjectsCoordinatesMatching(first_obj, second_obj){ // Compare les coordonnées de deux objets
-    if(typeof(first_obj.x) === "function" && typeof(second_obj.x) === "function"){ // les deux objets ont des fonctions pour coordonées uniquement si ils appartiennent à REAL{}
+    if(typeof(first_obj.x) === "function" && typeof(second_obj.x) === "function"){ // les deux objets ont des fonctions pour coordonées uniquement si ils appartiennent à ENV{}
         if (first_obj.x() === second_obj.x() && first_obj.y() === second_obj.y()) {
             return true;
         }

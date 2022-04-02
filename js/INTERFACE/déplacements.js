@@ -23,35 +23,35 @@ function onKeyDown(e) {
 }
 
 function moove(moove_direction){ // Déplace le player
-    const new_coordinateX = IA.I.x + moove_direction.x * REAL.player.width_and_height;
-    const new_coordinateY = IA.I.y + moove_direction.y * REAL.player.width_and_height;
+    const new_coordinateX = AI.I.x + moove_direction.x * ENV.player.width_and_height;
+    const new_coordinateY = AI.I.y + moove_direction.y * ENV.player.width_and_height;
     // console.log("new_coordinateX : ", new_coordinateX);
     // console.log("new_coordinateY : ", new_coordinateY);
-    if(isLocationFree(new_coordinateX, new_coordinateY, IA.Locations)){ // Vérifie si on peut aller sur l'emplacement selon les données de l'IA
-        updateIAPlayerPosition(new_coordinateX, new_coordinateY);
+    if(isLocationFree(new_coordinateX, new_coordinateY, AI.Locations)){ // Vérifie si on peut aller sur l'emplacement selon les données de l'AI
+        updateAIPlayerPosition(new_coordinateX, new_coordinateY);
         updateRealPlayerPosition();
         look();
     }
     else{
         // console.error("Vous ne pouvez pas aller ici, il y a un obstacle");
     }
-    // Ici on pourrait mettre une autre isLocationFree() qui se base sur les données de REAL{}. Et si REAL est pas d'accord 
-    // avec l'IA, c'est comme si elle se prenait un mur. Ca fait un niveau de sécurité de plus aussi
+    // Ici on pourrait mettre une autre isLocationFree() qui se base sur les données de ENV{}. Et si ENV est pas d'accord 
+    // avec l'AI, c'est comme si elle se prenait un mur. Ca fait un niveau de sécurité de plus aussi
 }
-function updateIAPlayerPosition(x, y){
-    IA.I.x = x;
-    IA.I.y = y;
+function updateAIPlayerPosition(x, y){
+    AI.I.x = x;
+    AI.I.y = y;
 }
 function updateRealPlayerPosition(){
     const player_original_coodinates = {
-        x : REAL.player.position_record.x[0],
-        y : REAL.player.position_record.y[0]
+        x : ENV.player.position_record.x[0],
+        y : ENV.player.position_record.y[0]
     }
-    setImgPosition(REAL.player.image, player_original_coodinates.x + IA.I.x, player_original_coodinates.y + IA.I.y);
-    REAL.player.position_record.x.push(REAL.player.x());
-    REAL.player.position_record.y.push(REAL.player.y());
-    const length = REAL.player.position_record.x.length;
-    updateRealLocation(REAL.player, REAL.player.position_record.x[length-2], REAL.player.position_record.y[length-2], REAL.player.x(), REAL.player.y());
+    setImgPosition(ENV.player.image, player_original_coodinates.x + AI.I.x, player_original_coodinates.y + AI.I.y);
+    ENV.player.position_record.x.push(ENV.player.x());
+    ENV.player.position_record.y.push(ENV.player.y());
+    const length = ENV.player.position_record.x.length;
+    updateRealLocation(ENV.player, ENV.player.position_record.x[length-2], ENV.player.position_record.y[length-2], ENV.player.x(), ENV.player.y());
 }
 function isLocationFree(x, y, map){ // vérifie si un emplacement est libre (si le joueur peut aller dessus)
     const key = transformCoordinatesIntoKey(x, y);
