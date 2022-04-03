@@ -1,7 +1,11 @@
 function startAI(){ // Déclenche le début du fonctionnement de l'AI. La fonction n'est éxécutée qu'après avoir générer le terrain
     createAIObject(); 
     look(); // Il faut que l'AI regarde tout de suite autour d'elle en arrivant
-    window.addEventListener("keydown", onKeyDown);
+}
+
+function updateAI(){
+
+    window.requestAnimationFrame(updateAI);
 }
 
 function createAIObject(){ // Génère l'objet que l'AI pense être
