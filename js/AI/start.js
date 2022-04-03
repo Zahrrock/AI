@@ -15,5 +15,7 @@ function createAIObject(){ // Génère l'objet que l'AI pense être
             y : 0, 
         },
         Locations : new Map(),
+        actual_discovering_rank : -1,
+        Locations_to_discover : []
     }
 }

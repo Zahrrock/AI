@@ -7,7 +7,7 @@ function deleteRealLocation(object, x, y){ // Efface la localisation d'un élém
     const real_key = transformCoordinatesIntoKey(x, y);
     const element_on_location = ENV.Locations.get(real_key);
     // On peut pas différencier les objets des array mieux que ça ?
-    if(element_on_location[0] !== undefined && element_on_location[1] !== undefined){ // condition vérifiée si l'élément est un tableau (si il y a plusieurs objets sur l'emplacement)
+    if(Array.isArray(element_on_location)){ // condition vérifiée si l'élément est un tableau (si il y a plusieurs objets sur l'emplacement)
         const array_of_objects_on_location = element_on_location; // maintenant qu'on sait que c'est un objet, on change le nom pour que ce soit plus explicite
         // Ensuite on cherche à savoir quel element de l'array correspond à l'objet à effacer, pour ne ré-enregistrer que les autres àcet emplacement
         if(array_of_objects_on_location[0] === object){ 
@@ -20,7 +20,7 @@ function deleteRealLocation(object, x, y){ // Efface la localisation d'un élém
             console.error("L'objet dont on veut effacer la localisation est introuvable à cet emplacement");
         }
     }
-    else if(element_on_location[0] === undefined && element_on_location[1] === undefined){ // cette condition est vérifiée si l'élément n'est pas un array (normalement ça doit être un objet)
+    else if(!Array.isArray(element_on_location)){ // cette condition est vérifiée si l'élément n'est pas un array (normalement ça doit être un objet)
         ENV.Locations.set(real_key, undefined);
         console.error("Attention : emplacement indéfini pour la clé : ", real_key);
     }
