@@ -4,7 +4,6 @@ function startENV(){ // Génère tous les objets de l'environnement
     generateObstacles(); // génère les obstacles
     generateFreeRectangles(); // génère les emplacements libres
     generatePlayer(); // génère le joueur
-    generateTarget(); // génère la cible
 }
 
 function setENVObject(){ // Sets the ENV object. It will store all the datas that are needed for the program. In theory AI is able to access it, but musn't to so to be autonomous
@@ -13,7 +12,6 @@ function setENVObject(){ // Sets the ENV object. It will store all the datas tha
         Obstacles : [], // stores all the obstacles of the map (the obstacles in the map, and those that compose the map frame)
         Free_Rectangles : [], // stores all the free rectangles of the map on which the player can go
         player: undefined, // stores the player object. It is defined in generation_functions/player.js
-        target: undefined, // stores the target object. It is defined in generation_functions/target.js
         MAP_OBSTACLE_NUMBER : 40, // defines the number of obstacle we need to generate.
         FRAME_OBSTACLE_NUMBER : undefined, // stores the number of obstacles that compose the frame of the map. It is defined few lines later
         ROW_AND_COLUMN_NUMBER : 20,  // stores the number of row and column the map has. Note that there are as much columns as rows, so the map is a square

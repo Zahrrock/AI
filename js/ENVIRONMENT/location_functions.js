@@ -1,4 +1,3 @@
-
 function updateRealLocation(object, formerX, formerY, newX, newY){ // Met à jour la position d'un élément (uniquement utilisé par le joueur pour le moment)
     deleteRealLocation(object, formerX, formerY); // efface l'ancienne localisation d'un élément
     setRealLocation(object, newX, newY); // enregistre la nouvelle localisation d'un élément
@@ -45,6 +44,21 @@ function transformCoordinatesIntoKey(x, y){ // Génère une clé utilisable par 
     const key = "x:" + coordinateX + " y:" + coordinateY;
     return key;
 }
+// function transformKeyIntoCoordinates(string = String){ // Génère une clé utilisable par les Map() de l'environnement et de l'AI dans lesquels sont référencés les objets. Fonction utilisée par AI{} et ENV{}
+//     coordinates = {
+//         x: undefined,
+//         y: undefined
+//     }
+//     for(caracter of string){
+//         if(!isNaN(caracter)){
+
+//         }
+//     }
+//     let coordinateX = String(x);
+//     let coordinateY = String(y);
+//     const key = "x:" + coordinateX + " y:" + coordinateY;
+//     return key;
+// }
 function createLocationMap(){
     const map = new Map();
     for (let i = 0; i < ENV.ROW_AND_COLUMN_NUMBER; i++) { // pour tous les x

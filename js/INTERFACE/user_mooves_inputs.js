@@ -4,18 +4,20 @@ function onKeyDown(e) {
         y: 0,
     }
     switch (e.keyCode) { // change la valeur des vecteurs unitaires x et y selon la touche directionnelle pressée
-        case KEY_CODE_LEFT: // Carré au dessu à gauche
+        case KEY_CODE_LEFT: // si la flèche de gauche est pressée
             moove_direction.x = -1;
             break;
-        case KEY_CODE_RIGHT: // Carré au dessu à gauche
+        case KEY_CODE_RIGHT: // si la flèche de droite est pressée
             moove_direction.x = 1;
             break;
-        case KEY_CODE_TOP_ARROW: // Carré au dessu à gauche
+        case KEY_CODE_TOP_ARROW: // si la flèche du heut est pressée
             moove_direction.y = -1;
             break;
-        case KEY_CODE_BOTTOM_ARROW: // Carré au dessu à gauche
+        case KEY_CODE_BOTTOM_ARROW: // si la flèche du bas est pressée
             moove_direction.y = 1;
             break;
+        case KEY_CODE_SPACE: // si la touche espace est pressée
+            AIDiscoverMap();
     }
     if(!(moove_direction.x === 0 && moove_direction.y === 0)){ // Lance moove() uniquement si une touche directionnelle a été pressée, et a changé les valeurs de moove_direction{}
         moove(moove_direction);
@@ -57,7 +59,7 @@ function isLocationFree(x, y, map){ // vérifie si un emplacement est libre (si 
     const key = transformCoordinatesIntoKey(x, y);
     const element = map.get(key);
     if(element === undefined || element === null){ // Condition de sécurité
-        console.error("element est undefined ou null : element = ", element);
+        // console.error("element est undefined ou null dans la map : ", map, " : element = ", element);
         return false;
     }
     else if(!Array.isArray(element)){ // cette condition est vérifiée si element n'est pas un Array
@@ -65,7 +67,7 @@ function isLocationFree(x, y, map){ // vérifie si un emplacement est libre (si 
         if(element_type === "obstacle"){
             return false;
         }
-        else if(element_type === "obstacle" || element_type === "target" || element_type === "free_rectangle"){
+        else if(element_type === "obstacle" || element_type === "free_rectangle"){
             return true;
         }
         else{

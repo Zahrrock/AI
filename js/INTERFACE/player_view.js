@@ -9,35 +9,35 @@ function getBorderingLocations(){ // Retourne à l'AI tous les objets visibles (
                 break;
             case 1: // Carré au dessu
                 location_to_check.x = AI.I.x
-                location_to_check.y = AI.I.y-5
+                location_to_check.y = AI.I.y-ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             case 2: // Carré au dessu à droite
-                location_to_check.x = AI.I.x+5
-                location_to_check.y = AI.I.y-5
+                location_to_check.x = AI.I.x+ENV.CELL_WIDTH_AND_HEIGHT
+                location_to_check.y = AI.I.y-ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             case 3: // Carré à droite
-                location_to_check.x = AI.I.x+5
+                location_to_check.x = AI.I.x+ENV.CELL_WIDTH_AND_HEIGHT
                 location_to_check.y = AI.I.y
                 break;
             case 4: // Carré au dessous à droite
-                location_to_check.x = AI.I.x+5
-                location_to_check.y = AI.I.y+5
+                location_to_check.x = AI.I.x+ENV.CELL_WIDTH_AND_HEIGHT
+                location_to_check.y = AI.I.y+ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             case 5: // Carré au dessous
                 location_to_check.x = AI.I.x
-                location_to_check.y = AI.I.y+5
+                location_to_check.y = AI.I.y+ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             case 6: // Carré au dessous à gauche
-                location_to_check.x = AI.I.x-5
-                location_to_check.y = AI.I.y+5
+                location_to_check.x = AI.I.x-ENV.CELL_WIDTH_AND_HEIGHT
+                location_to_check.y = AI.I.y+ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             case 7: // Carré à gauche
-                location_to_check.x = AI.I.x-5
+                location_to_check.x = AI.I.x-ENV.CELL_WIDTH_AND_HEIGHT
                 location_to_check.y = AI.I.y
                 break;
             case 8: // Carré au dessu à gauche
-                location_to_check.x = AI.I.x-5
-                location_to_check.y = AI.I.y-5
+                location_to_check.x = AI.I.x-ENV.CELL_WIDTH_AND_HEIGHT
+                location_to_check.y = AI.I.y-ENV.CELL_WIDTH_AND_HEIGHT
                 break;
             default:
                 console.log("ERREUR au switch statement, i = ", i);
@@ -45,7 +45,7 @@ function getBorderingLocations(){ // Retourne à l'AI tous les objets visibles (
         }
         const real_key = transformCoordinatesIntoKey(location_to_check.x + ENV.player.position_record.x[0], location_to_check.y + ENV.player.position_record.y[0]); // Récupérer ce qu'il ya vraiment à cet emplacement
         const element_on_location = ENV.Locations.get(real_key);
-        if(element_on_location === undefined){ // si element_on_location est indéfini dans ENV.Locations, il y a un problème quelque part
+        if(element_on_location === undefined){ // Condition de sécurité. Si element_on_location est indéfini dans ENV.Locations, il y a un problème quelque part
             console.error("element_on_location is undefined. location : ", real_key);
         }
         if(Array.isArray(element_on_location)){ // condition vérifiée si l'élément est un tableau (si il y a plusieurs objets sur l'emplacement)

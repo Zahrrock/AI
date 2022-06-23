@@ -1,3 +1,9 @@
+function AIDiscoverMap(){
+    AI.target.x = AI.Locations_to_discover[0].x;
+    AI.target.y = AI.Locations_to_discover[0].y;
+    startSearch();
+}
+
 function generateRandomMoove(){
     const moove_direction = { // stoque la direction du futur mouvement du player sous forme de vecteurs unitaires x et y
         x: 0,
@@ -10,7 +16,7 @@ function generateRandomMoove(){
     AIVerifyMoove(moove_direction);
 }
 
-function AIVerifyMoove(moove_direction){
+function AIVerifyMoove(moove_direction){ // l'IA vérifie avec ses propres données si elle peut aller à cet emplacement
     const player_size = ENV.player.width_and_height;
     const new_coordinateX = AI.I.x + moove_direction.x * player_size;
     const new_coordinateY = AI.I.y + moove_direction.y * player_size;
@@ -26,7 +32,7 @@ function AIVerifyMoove(moove_direction){
     }
 }
 
-function ENVVerifyMoove(moove_direction){
+function ENVVerifyMoove(moove_direction){ // Vérifie avec les données de ENV si le player peut aller à cet emplacement
     const player_size = ENV.player.width_and_height;
     const new_coordinateX = ENV.player.x() + moove_direction.x * player_size;
     const new_coordinateY = ENV.player.y() + moove_direction.y * player_size;
