@@ -39,8 +39,8 @@ function generateOneObstacle(x, y){ // On génère un obstacle et on l'inclue à
 function generateMapFrame(){
     let frame_obstacles_number_generated = 0;
     const coordinates = {
-        x:undefined,
-        y:undefined
+        x: undefined,
+        y: undefined
     }
     coordinates.x = -1*ENV.CELL_WIDTH_AND_HEIGHT;
     for (let i = -1; i < ENV.ROW_AND_COLUMN_NUMBER+1; i++) { // Génère la partie gauche de la limite de la map, constituée d'obstacles

@@ -9,5 +9,5 @@ AI = {};
 
 startENV(); // CF ENVIRONMENT/start.js
 startAI(); // CF AI/start.js
-window.addEventListener("keydown", onKeyDown);
-// window.setInterval(generateRandomMoove, 1000);
+UpdateMapDiscovering();
+// window.addEventListener("keydown", onKeyDown);

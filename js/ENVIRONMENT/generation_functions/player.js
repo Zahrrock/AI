@@ -5,6 +5,5 @@ function generatePlayer(){ // Génère le joueur
         x: [player_coordinates.x], // On stoque les première coordonnées
         y: [player_coordinates.y]  //
     }
-    ENV.player.width_and_height = transformCssCoordinateIntoJsCoordinate(document.getElementById('player').style.width); // Ici ont ne transforme pas vraiment des coordonnées, mais on utilise la même fonction pour extraire la taille réelle de l'image
     setRealLocation(ENV.player, ENV.player.x(), ENV.player.y());
 }

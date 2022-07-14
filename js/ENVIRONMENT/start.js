@@ -8,7 +8,7 @@ function startENV(){ // Génère tous les objets de l'environnement
 
 function setENVObject(){ // Sets the ENV object. It will store all the datas that are needed for the program. In theory AI is able to access it, but musn't to so to be autonomous
     ENV = { // Variables qui servent à créer l'environnement. L'AI n'a pas le droit d'y accéder
-        Locations : createLocationMap(), // a Map() object that is used to store the content of every location 
+        Locations : [], // a Map() object that is used to store the content of every location 
         Obstacles : [], // stores all the obstacles of the map (the obstacles in the map, and those that compose the map frame)
         Free_Rectangles : [], // stores all the free rectangles of the map on which the player can go
         player: undefined, // stores the player object. It is defined in generation_functions/player.js

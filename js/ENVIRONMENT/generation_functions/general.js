@@ -87,8 +87,7 @@ function ObjectsCoordinatesMatching(first_obj, second_obj){ // Compare les coord
 }
 
 function isLocationUndefined(x, y, map){ // vérifie si un emplacement est libre (si le joueur peut aller dessus)
-    const key = transformCoordinatesIntoKey(x, y);
-    const element = map.get(key);
+    const element = map[x][y];
     if(element === undefined || element === null){ // si l'emplacement n'a pas été défini (si il n'y a encore aucun obstacle)
         return true;
     }

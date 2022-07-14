@@ -1,37 +1,47 @@
-function startSearch(){
+function startRoadSearching(){
+    // console.log("Find a Road");
     AI.Target_search.Search_rectangles = [];
     AI.Target_search.Road = [];
-    createCarreChemin(AI.I.x, AI.I.y, AI.I);
     AI.Target_search.searchActive = true;
-    AI.Target_search.interval = window.requestAnimationFrame(UpdateSearch);
+    AI.recursion = 0;
+    createCarreChemin(AI.I.x, AI.I.y, AI.I);
+    UpdateSearch();
 }
 
 function UpdateSearch(){ // Faire avancer tous les chemins
-    // console.log('UpdateSearch');
-    const length = AI.Target_search.Search_rectangles.length; // Utile car AI.Target_search.Search_rectangles.length va changer avant la fin de la boucle
-    for (let i = 0; i < length; i++) { // Pour tout les carrés chemins
-        const carre = AI.Target_search.Search_rectangles[i];
-        if(carre.actif === true){ // Si le carré chemin est actif
-            // console.log("AI.Target_search.Search_rectangles[", i, "] = ", carre);
-            updateChemin(carre); // essayer de créer des carrés chemins à cotés
+    AI.recursion ++;
+    if(AI.Target_search.searchActive && AI.recursion < 20){
+        // console.log('UpdateSearch ************************************************************************');
+        const length = AI.Target_search.Search_rectangles.length; // Utile car AI.Target_search.Search_rectangles.length va changer avant la fin de la boucle
+        for (let i = 0; i < length; i++) { // Pour tout les carrés chemins
+            const carre = AI.Target_search.Search_rectangles[i];
+            if(carre.actif === true){ // Si le carré chemin est actif
+                // console.log("AI.Target_search.Search_rectangles[", i, "] = ", carre);
+                updateChemin(carre); // essayer de créer des carrés chemins à cotés
+            }
         }
+        // console.log("fin UpdateSearch*********************************************************************")
+        // window.requestAnimationFrame(UpdateSearch);
+        UpdateSearch();
     }
-    if(AI.Target_search.searchActive){
-        AI.Target_search.interval = window.requestAnimationFrame(UpdateSearch);
+    else if(AI.recursion >= 20){
+        console.error("TOO MUCH RECURSION : ", AI.recursion);
     }
     else{
-        deleteCarresInutiles();
+        // Nothing
     }
 }
 
 function updateChemin(carre){
-    // console.log('UpdateChemin');
+    // console.log('UpdateChemin()');
     CarresCheminACreer = trouverCarresCheminACreer(carre); // On récupère tous les emplacements sur lesquels ont pourrait créer un nouveau carré chemin
     // console.log(CarresCheminACreer.length);
     if(CarresCheminACreer.length > 0){ // Si on a trouvé un ou plusieurs emplacements libres 
         for (let i = 0; i < CarresCheminACreer.length; i++) { // Pour chaque emplacement libre 
-            const carreCheminACreer = CarresCheminACreer[i];
-            createCarreChemin(carreCheminACreer.x, carreCheminACreer.y, carre); // Créer un carré chemin à  cet emplacement
+            if(AI.Target_search.searchActive){
+                const carreCheminACreer = CarresCheminACreer[i];
+                createCarreChemin(carreCheminACreer.x, carreCheminACreer.y, carre); // Créer un carré chemin à  cet emplacement
+            }
         }
     }
     else{ // Si on n'a pas trouvé d'emplacement libre 
@@ -41,7 +51,7 @@ function updateChemin(carre){
 }
 
 function trouverCarresCheminACreer(carre){
-    // console.log(carre);
+    // console.log("trouverCarresCheminACreer()");
     const CarresCheminACreer = [];
     for (let i = 0; i < 4; i++) { // Pour tous les carrés qui entourent notre carré chemin
         // console.log("i = ", i);
@@ -104,7 +114,7 @@ function createCarreChemin(x, y, parent){ // x et y en %
     verifierArrivee(carreChemin);
 }
 function verifierArrivee(carreChemin){
-    console.log("verifier arrivee");
+    // console.log("verifierArrivee()");
     if(ObjectsCoordinatesMatching(carreChemin, AI.target)){
         AI.Target_search.searchActive = false;
         AI.Target_search.Road.push(carreChemin);
@@ -115,11 +125,12 @@ function verifierArrivee(carreChemin){
             AI.Target_search.Road.push(carreCheminParent);
         }
         AI.Target_search.Road.reverse();
-        window.cancelAnimationFrame(AI.Target_search.interval);
-        console.log(AI.Target_search.Road);
+        // console.log("Road : ", AI.Target_search.Road, " length : ", AI.Target_search.Road.length);
+        deleteCarresInutiles();
     }
 }
 function deleteCarresInutiles(){
+    // console.log('deleteCarresInutiles');
     for (let i = 0; i < AI.Target_search.Search_rectangles.length; i++) { // pour tous les carrés de CarresChemins[] (dont on veut supprimer une bonne partie)
         const carre = AI.Target_search.Search_rectangles[i];
         let nombre_carres_testes = 0;

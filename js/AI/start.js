@@ -14,8 +14,9 @@ function createAIObject(){ // Génère l'objet que l'AI pense être
         I : {
             x : 0, // Au début, l'AI se place à (0;0), ce qui créer un décalage entre l'origine de son repère à elle et de ENV{}. Les conséquences de ce décalage ne sont pas encore toutes réglées
             y : 0, 
+            size : ENV.CELL_WIDTH_AND_HEIGHT
         },
-        Locations : new Map(),
+        Locations : [],
         actual_discovering_rank : -1,
         Locations_to_discover : [],
         target: { // stores the target object.
